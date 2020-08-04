@@ -50,6 +50,7 @@ textarea {
   font-weight: 500;
   font-size: 1.6rem;
   font-family: Poppins, sans-serif;
+  color: var(--color-text-base);
 }
 
 .container {
