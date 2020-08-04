@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./styles.css";
 
@@ -19,14 +20,14 @@ const Lading: React.FC = () => (
       <img className="hero-image" src={landingImage} alt="hero" />
 
       <div className="buttons-container">
-        <a href="#" className="study">
+        <Link to="study" className="study">
           <img src={studyIcon} alt="Study" />
           Study
-        </a>
-        <a href="#" className="give-classes">
+        </Link>
+        <Link to="teach" className="give-classes">
           <img src={giveClassesIcon} alt="Give classes" />
           Teach
-        </a>
+        </Link>
       </div>
 
       <span className="total-connections">
