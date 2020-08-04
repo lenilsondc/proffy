@@ -1,8 +1,10 @@
 import React from "react";
 
+import PageHeader from "../../components/PageHeader";
+
 const TeacherForm: React.FC = () => (
   <div>
-    <h1>Teachers Form</h1>
+    <PageHeader title="How amazing that you want to teach." />
   </div>
 );
 
