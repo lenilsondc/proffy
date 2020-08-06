@@ -17,8 +17,8 @@ const Select: React.FC<SelectProps> = ({
   return (
     <div className="select-block">
       <label htmlFor={name}>{label}</label>
-      <select id={name} {...selectProps}>
-        <option value="" disabled selected hidden>
+      <select defaultValue="" id={name} {...selectProps}>
+        <option value="" disabled hidden>
           Select an option
         </option>
         {options.map(({ label, value }) => (
