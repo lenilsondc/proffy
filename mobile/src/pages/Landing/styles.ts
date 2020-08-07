@@ -1,4 +1,5 @@
 import styled, { variant } from "styled-components/native";
+import { RectButton } from "react-native-gesture-handler";
 
 export const Container = styled.View`
   flex: 1;
@@ -39,7 +40,7 @@ interface ButtonProps {
   variant?: keyof typeof VARIANTS;
 }
 
-export const Button = styled.TouchableOpacity<ButtonProps>`
+export const Button = styled(RectButton)<ButtonProps>`
   height: 150px;
   width: 48%;
   background-color: ${(props) =>
