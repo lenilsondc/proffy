@@ -12,6 +12,7 @@ import {
 } from "@expo-google-fonts/poppins";
 
 import Landing from "./src/pages/Landing";
+import AppStack from "./src/routes/AppStack";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,7 +29,7 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <Landing />
+      <AppStack />
     </>
   );
 }
