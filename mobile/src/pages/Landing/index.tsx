@@ -16,8 +16,15 @@ import {
   ButtonsContainer,
   ButtonText,
 } from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 const Landing: React.FC = () => {
+  const { navigate } = useNavigation();
+
+  function navigateToTeachPage() {
+    navigate("Teach");
+  }
+
   return (
     <Container>
       <Banner source={ladingImage} />
@@ -31,7 +38,7 @@ const Landing: React.FC = () => {
           <Image source={studyIcon} />
           <ButtonText>Study</ButtonText>
         </Button>
-        <Button variant="secondary">
+        <Button variant="secondary" onPress={navigateToTeachPage}>
           <Image source={teachIcon} />
           <ButtonText>Teach</ButtonText>
         </Button>
