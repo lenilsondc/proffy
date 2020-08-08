@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity, Image, Text } from "react-native";
 
 import ladingImage from "../../assets/images/landing.png";
@@ -18,7 +18,17 @@ import {
 } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 
+import api from "../../services/api";
+
 const Landing: React.FC = () => {
+  const [totalConnections, setTotalConnections] = useState(0);
+
+  useEffect(() => {
+    api.get("connections").then((res) => {
+      setTotalConnections(res.data.total);
+    });
+  }, []);
+
   const { navigate } = useNavigation();
 
   function navigateToTeachPage() {
@@ -49,7 +59,8 @@ const Landing: React.FC = () => {
       </ButtonsContainer>
 
       <TotalConnections>
-        Total of 250 connections made <Image source={heartIcon} />
+        Total of {totalConnections} connections made{" "}
+        <Image source={heartIcon} />
       </TotalConnections>
     </Container>
   );
