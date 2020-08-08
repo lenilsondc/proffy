@@ -12,6 +12,8 @@ import {
   InputBlock,
   SubmitButton,
   SubmitButtonText,
+  EmptyState,
+  EmptyStateText,
 } from "./styles";
 import PageHeader from "../../components/PageHeader";
 import TeacherItem, { Teacher } from "../../components/TeacherItem";
@@ -20,7 +22,7 @@ import { BorderlessButton } from "react-native-gesture-handler";
 import api from "../../services/api";
 
 const TeacherList: React.FC = () => {
-  const [showFilter, setShowFilter] = useState(false);
+  const [showFilter, setShowFilter] = useState(true);
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [favorites, setFavorites] = useState<number[]>([]);
 
@@ -100,18 +102,24 @@ const TeacherList: React.FC = () => {
         )}
       </PageHeader>
 
-      <TeachersFlatList
-        data={teachers}
-        renderItem={({ item }) => (
-          <TeacherItem
-            key={String(item.id)}
-            teacher={item}
-            favorited={favorites.includes(item.id)}
-          />
-        )}
-      />
-
-      {teachers.length === 0 && <Text>Nothing to show</Text>}
+      {!showFilter && teachers.length === 0 ? (
+        <EmptyState>
+          <EmptyStateText>
+            No results to be shown, use the filter to find Proffys
+          </EmptyStateText>
+        </EmptyState>
+      ) : (
+        <TeachersFlatList
+          data={teachers}
+          renderItem={({ item }) => (
+            <TeacherItem
+              key={String(item.id)}
+              teacher={item}
+              favorited={favorites.includes(item.id)}
+            />
+          )}
+        />
+      )}
     </Container>
   );
 };

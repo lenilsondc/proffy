@@ -58,3 +58,19 @@ export const SubmitButtonText = styled.Text`
   font-family: Archivo_700Bold;
   font-size: 16px;
 `;
+
+export const EmptyState = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding-right: 40px;
+  padding-left: 40px;
+`;
+
+export const EmptyStateText = styled.Text`
+  color: #6a6180;
+  line-height: 34px;
+  font-family: Archivo_700Bold;
+  font-size: 26px;
+  text-align: center;
+`;

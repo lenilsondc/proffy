@@ -2,7 +2,12 @@ import React, { useState, useCallback } from "react";
 import { AsyncStorage } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
-import { Container, TeachersFlatList } from "./styles";
+import {
+  Container,
+  TeachersFlatList,
+  EmptyState,
+  EmptyStateText,
+} from "./styles";
 import PageHeader from "../../components/PageHeader";
 import TeacherItem, { Teacher } from "../../components/TeacherItem";
 
@@ -27,12 +32,20 @@ const Favorites: React.FC = () => {
     <Container>
       <PageHeader title="My favorite Proffys" />
 
-      <TeachersFlatList
-        data={favorites}
-        renderItem={({ item }) => (
-          <TeacherItem key={item.id} teacher={item} favorited />
-        )}
-      />
+      {favorites.length === 0 ? (
+        <EmptyState>
+          <EmptyStateText>
+            No results to be shown, add favorites from the Proffys list
+          </EmptyStateText>
+        </EmptyState>
+      ) : (
+        <TeachersFlatList
+          data={favorites}
+          renderItem={({ item }) => (
+            <TeacherItem key={item.id} teacher={item} favorited />
+          )}
+        />
+      )}
     </Container>
   );
 };
