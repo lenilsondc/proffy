@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Feather } from "@expo/vector-icons";
 import { Text, AsyncStorage, View } from "react-native";
 
@@ -15,11 +15,13 @@ import {
   EmptyState,
   EmptyStateText,
   PickerContainer,
+  TimePickerButton,
 } from "./styles";
 import PageHeader from "../../components/PageHeader";
 import TeacherItem, { Teacher } from "../../components/TeacherItem";
 import { BorderlessButton } from "react-native-gesture-handler";
 import { Picker } from "@react-native-community/picker";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import api from "../../services/api";
 
@@ -30,7 +32,8 @@ const TeacherList: React.FC = () => {
 
   const [subject, setSubject] = useState("Arts");
   const [weekday, setWeekday] = useState("1");
-  const [time, setTime] = useState("9:00");
+  const [time, setTime] = useState(new Date());
+  const [showTimePicker, setShowTimePicker] = useState(false);
 
   function toggleShowFilter() {
     setShowFilter(!showFilter);
@@ -46,13 +49,21 @@ const TeacherList: React.FC = () => {
 
   async function submitSearchForm() {
     loadFavorites();
-
     const { data } = await api.get("classes", {
-      params: { subject, weekday, time },
+      params: { subject, weekday, time: formatted(time) },
     });
 
     setTeachers(data);
     setShowFilter(false);
+  }
+
+  function formatted(time: Date) {
+    const timeString = time.toLocaleTimeString(navigator.language, {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    return timeString.substring(0, 5);
   }
 
   return (
@@ -114,10 +125,18 @@ const TeacherList: React.FC = () => {
               </InputBlock>
               <InputBlock>
                 <Label>Time</Label>
-                <Input
-                  value={time}
-                  onChangeText={(text) => setTime(text)}
-                  placeholder="Time"
+                <TimePickerButton onPress={() => setShowTimePicker(true)}>
+                  <Text style={{ fontSize: 16 }}>{formatted(time)}</Text>
+                </TimePickerButton>
+                <DateTimePickerModal
+                  isVisible={showTimePicker}
+                  mode="time"
+                  date={time}
+                  onConfirm={(date) => {
+                    setShowTimePicker(false);
+                    setTime(date);
+                  }}
+                  onCancel={() => setShowTimePicker(true)}
                 />
               </InputBlock>
             </InputGroup>

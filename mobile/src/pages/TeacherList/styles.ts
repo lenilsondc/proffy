@@ -86,3 +86,14 @@ export const PickerContainer = styled.View`
   margin-top: 4px;
   margin-bottom: 16px;
 `;
+
+export const TimePickerButton = styled(RectButton)`
+  height: 54px;
+  background-color: #fff;
+  border-radius: 8px;
+  justify-content: center;
+  padding-right: 16px;
+  padding-left: 16px;
+  margin-top: 4px;
+  margin-bottom: 16px;
+`;
