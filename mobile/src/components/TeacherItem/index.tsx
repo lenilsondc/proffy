@@ -22,6 +22,7 @@ import {
   ContactButton,
   ContactButtonText,
 } from "./styles";
+import api from "../../services/api";
 
 export interface Teacher {
   id: number;
@@ -47,6 +48,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({
 
   function linkToWhatsApp() {
     Linking.openURL(`whatsapp://send?phone${teacher.whatsapp}`);
+    api.post("connections", { user_id: teacher.id });
   }
 
   async function toggleFavorite() {
