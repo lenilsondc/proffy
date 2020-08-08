@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Feather } from "@expo/vector-icons";
-import { Text, AsyncStorage } from "react-native";
+import { Text, AsyncStorage, View } from "react-native";
 
 import {
   Container,
@@ -14,10 +14,12 @@ import {
   SubmitButtonText,
   EmptyState,
   EmptyStateText,
+  PickerContainer,
 } from "./styles";
 import PageHeader from "../../components/PageHeader";
 import TeacherItem, { Teacher } from "../../components/TeacherItem";
 import { BorderlessButton } from "react-native-gesture-handler";
+import { Picker } from "@react-native-community/picker";
 
 import api from "../../services/api";
 
@@ -70,11 +72,25 @@ const TeacherList: React.FC = () => {
         {showFilter && (
           <SearchForm>
             <Label>Subject</Label>
-            <Input
-              value={subject}
-              onChangeText={(text) => setSubject(text)}
-              placeholder="Subject"
-            />
+            <PickerContainer>
+              <Picker
+                selectedValue={subject}
+                onValueChange={(itemValue) => setSubject(itemValue.toString())}
+              >
+                <Picker.Item value="Arts" label="Arts" />
+                <Picker.Item value="Biology" label="Biology" />
+                <Picker.Item value="Sciences" label="Sciences" />
+                <Picker.Item
+                  value="Physical  Education"
+                  label="Physical Education"
+                />
+                <Picker.Item value="Physics" label="Physics" />
+                <Picker.Item value="Geography" label="Geography" />
+                <Picker.Item value="History" label="History" />
+                <Picker.Item value="English" label="English" />
+                <Picker.Item value="Chemistry" label="Chemistry" />
+              </Picker>
+            </PickerContainer>
 
             <InputGroup>
               <InputBlock>

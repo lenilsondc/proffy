@@ -3,6 +3,7 @@ import { FlatList } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 
 import { Teacher } from "../../components/TeacherItem";
+import { Picker } from "@react-native-community/picker";
 
 export const Container = styled.View`
   flex: 1;
@@ -73,4 +74,15 @@ export const EmptyStateText = styled.Text`
   font-family: Archivo_700Bold;
   font-size: 26px;
   text-align: center;
+`;
+
+export const PickerContainer = styled.View`
+  height: 54px;
+  background-color: #fff;
+  border-radius: 8px;
+  justify-content: center;
+  padding-right: 6px;
+  padding-left: 6px;
+  margin-top: 4px;
+  margin-bottom: 16px;
 `;
