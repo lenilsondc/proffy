@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { TouchableOpacity, Image, Text } from "react-native";
-
-import ladingImage from "../../assets/images/landing.png";
-import studyIcon from "../../assets/images/icons/study.png";
-import teachIcon from "../../assets/images/icons/give-classes.png";
-import heartIcon from "../../assets/images/icons/heart.png";
+import { useNavigation } from "@react-navigation/native";
+import { Image } from "react-native";
 
 import {
   Container,
@@ -16,7 +12,10 @@ import {
   ButtonsContainer,
   ButtonText,
 } from "./styles";
-import { useNavigation } from "@react-navigation/native";
+import ladingImage from "../../assets/images/landing.png";
+import studyIcon from "../../assets/images/icons/study.png";
+import teachIcon from "../../assets/images/icons/give-classes.png";
+import heartIcon from "../../assets/images/icons/heart.png";
 
 import api from "../../services/api";
 
