@@ -95,11 +95,22 @@ const TeacherList: React.FC = () => {
             <InputGroup>
               <InputBlock>
                 <Label>Weekday</Label>
-                <Input
-                  value={weekday}
-                  onChangeText={(text) => setWeekday(text)}
-                  placeholder="Weekday"
-                />
+                <PickerContainer>
+                  <Picker
+                    selectedValue={weekday}
+                    onValueChange={(itemValue) =>
+                      setWeekday(itemValue.toString())
+                    }
+                  >
+                    <Picker.Item value="0" label="Sunday" />
+                    <Picker.Item value="1" label="Monday" />
+                    <Picker.Item value="2" label="Tuesday" />
+                    <Picker.Item value="3" label="Wednesday" />
+                    <Picker.Item value="4" label="Thursday" />
+                    <Picker.Item value="5" label="Friday" />
+                    <Picker.Item value="6" label="Saturday" />
+                  </Picker>
+                </PickerContainer>
               </InputBlock>
               <InputBlock>
                 <Label>Time</Label>
