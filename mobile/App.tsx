@@ -11,7 +11,6 @@ import {
   useFonts,
 } from "@expo-google-fonts/poppins";
 
-import Landing from "./src/pages/Landing";
 import AppStack from "./src/routes/AppStack";
 
 export default function App() {

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Text, Image } from "react-native";
+import { Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { Container, TopBar, BarButton, Title, Header } from "./styles";

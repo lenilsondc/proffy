@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { Text, Image, Linking, AsyncStorage } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { Image, Linking, AsyncStorage } from "react-native";
 
 import favoriteIcon from "../../assets/images/icons/heart-outline.png";
 import unfavoriteIcon from "../../assets/images/icons/unfavorite.png";
 import whatsappIcon from "../../assets/images/icons/whatsapp.png";
-
 import {
   Container,
   Profile,
@@ -22,6 +20,7 @@ import {
   ContactButton,
   ContactButtonText,
 } from "./styles";
+
 import api from "../../services/api";
 
 export interface Teacher {
