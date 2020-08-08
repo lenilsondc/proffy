@@ -1,5 +1,5 @@
-import React from "react";
-import { Text, Image, Linking } from "react-native";
+import React, { useState } from "react";
+import { Text, Image, Linking, AsyncStorage } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import favoriteIcon from "../../assets/images/icons/heart-outline.png";
@@ -36,11 +36,37 @@ export interface Teacher {
 
 interface TeacherItemProps {
   teacher: Teacher;
+  favorited?: boolean;
 }
 
-const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+const TeacherItem: React.FC<TeacherItemProps> = ({
+  teacher,
+  favorited = false,
+}) => {
+  const [isFavorite, setIsFavorite] = useState(favorited);
+
   function linkToWhatsApp() {
     Linking.openURL(`whatsapp://send?phone${teacher.whatsapp}`);
+  }
+
+  async function toggleFavorite() {
+    const favs = await AsyncStorage.getItem("favorites");
+    const favsArray: Teacher[] = JSON.parse(favs || "[]");
+
+    if (isFavorite) {
+      const favIndex = favsArray.findIndex(
+        (teacherItem) => teacher.id === teacherItem.id
+      );
+
+      favsArray.splice(favIndex, 1);
+      setIsFavorite(false);
+    } else {
+      favsArray.push(teacher);
+
+      setIsFavorite(true);
+    }
+
+    await AsyncStorage.setItem("favorites", JSON.stringify(favsArray));
   }
 
   return (
@@ -61,12 +87,13 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
           <PriceValue>{teacher.hourly_rate}</PriceValue>
         </Price>
         <FooterButtons>
-          <FavoriteButton>
-            <Image source={favoriteIcon} />
+          <FavoriteButton
+            onPress={toggleFavorite}
+            variant={isFavorite ? "red" : "default"}
+          >
+            <Image source={isFavorite ? unfavoriteIcon : favoriteIcon} />
           </FavoriteButton>
-          <FavoriteButton variant="red">
-            <Image source={unfavoriteIcon} />
-          </FavoriteButton>
+
           <ContactButton onPress={linkToWhatsApp}>
             <Image source={whatsappIcon} />
             <ContactButtonText>Contact</ContactButtonText>
