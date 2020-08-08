@@ -23,30 +23,38 @@ import {
   ContactButtonText,
 } from "./styles";
 
-interface TeacherItemProps {}
+export interface Teacher {
+  id: number;
+  subject: string;
+  hourly_rate: number;
+  user_id: number;
+  name: string;
+  avatar: string;
+  whatsapp: string;
+  bio: string;
+}
 
-const TeacherItem: React.FC<TeacherItemProps> = () => {
+interface TeacherItemProps {
+  teacher: Teacher;
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
   return (
     <Container>
       <Profile>
-        <Avatar source={{ uri: "https://github.com/lenilsondc.png" }} />
+        <Avatar source={{ uri: teacher.avatar }} />
         <ProfileInfo>
-          <Name>Lenilson de Castro</Name>
-          <Subject>Programming</Subject>
+          <Name>{teacher.name}</Name>
+          <Subject>{teacher.subject}</Subject>
         </ProfileInfo>
       </Profile>
 
-      <Bio>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quia
-        aut dignissimos vero optio, doloribus voluptatibus sapiente harum?
-        Nostrum aperiam placeat odit harum consequatur autem voluptate cumque
-        voluptates deserunt exercitationem?
-      </Bio>
+      <Bio>{teacher.bio}</Bio>
 
       <Footer>
         <Price>
           Hourly rate {"    "}
-          <PriceValue>$50</PriceValue>
+          <PriceValue>{teacher.hourly_rate}</PriceValue>
         </Price>
         <FooterButtons>
           <FavoriteButton>
