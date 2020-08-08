@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Feather } from "@expo/vector-icons";
+import { Text, AsyncStorage } from "react-native";
 
 import {
   Container,
@@ -13,14 +14,41 @@ import {
   SubmitButtonText,
 } from "./styles";
 import PageHeader from "../../components/PageHeader";
-import TeacherItem from "../../components/TeacherItem";
+import TeacherItem, { Teacher } from "../../components/TeacherItem";
 import { BorderlessButton } from "react-native-gesture-handler";
+
+import api from "../../services/api";
 
 const TeacherList: React.FC = () => {
   const [showFilter, setShowFilter] = useState(false);
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [favorites, setFavorites] = useState<number[]>([]);
+
+  const [subject, setSubject] = useState("Arts");
+  const [weekday, setWeekday] = useState("1");
+  const [time, setTime] = useState("9:00");
 
   function toggleShowFilter() {
     setShowFilter(!showFilter);
+  }
+
+  function loadFavorites() {
+    AsyncStorage.getItem("favorites").then((value) => {
+      const favs = JSON.parse(value || "[]") as Teacher[];
+
+      setFavorites(favs.map((fav) => fav.id));
+    });
+  }
+
+  async function submitSearchForm() {
+    loadFavorites();
+
+    const { data } = await api.get("classes", {
+      params: { subject, weekday, time },
+    });
+
+    setTeachers(data);
+    setShowFilter(false);
   }
 
   return (
@@ -40,20 +68,32 @@ const TeacherList: React.FC = () => {
         {showFilter && (
           <SearchForm>
             <Label>Subject</Label>
-            <Input placeholder="Subject" />
+            <Input
+              value={subject}
+              onChangeText={(text) => setSubject(text)}
+              placeholder="Subject"
+            />
 
             <InputGroup>
               <InputBlock>
                 <Label>Weekday</Label>
-                <Input placeholder="Weekday" />
+                <Input
+                  value={weekday}
+                  onChangeText={(text) => setWeekday(text)}
+                  placeholder="Weekday"
+                />
               </InputBlock>
               <InputBlock>
                 <Label>Time</Label>
-                <Input placeholder="Time" />
+                <Input
+                  value={time}
+                  onChangeText={(text) => setTime(text)}
+                  placeholder="Time"
+                />
               </InputBlock>
             </InputGroup>
 
-            <SubmitButton>
+            <SubmitButton onPress={submitSearchForm}>
               <SubmitButtonText>Search</SubmitButtonText>
             </SubmitButton>
           </SearchForm>
@@ -61,10 +101,17 @@ const TeacherList: React.FC = () => {
       </PageHeader>
 
       <TeachersFlatList
-        data={[1, 2, 3]}
-        keyExtractor={(item) => String(item)}
-        renderItem={({ item }) => <TeacherItem />}
+        data={teachers}
+        renderItem={({ item }) => (
+          <TeacherItem
+            key={String(item.id)}
+            teacher={item}
+            favorited={favorites.includes(item.id)}
+          />
+        )}
       />
+
+      {teachers.length === 0 && <Text>Nothing to show</Text>}
     </Container>
   );
 };
