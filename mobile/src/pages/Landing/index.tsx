@@ -25,6 +25,10 @@ const Landing: React.FC = () => {
     navigate("Teach");
   }
 
+  function navigateToStudyPage() {
+    navigate("Study");
+  }
+
   return (
     <Container>
       <Banner source={ladingImage} />
@@ -34,7 +38,7 @@ const Landing: React.FC = () => {
       </Title>
 
       <ButtonsContainer>
-        <Button variant="primary">
+        <Button variant="primary" onPress={navigateToStudyPage}>
           <Image source={studyIcon} />
           <ButtonText>Study</ButtonText>
         </Button>
