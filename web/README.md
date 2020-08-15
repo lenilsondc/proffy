@@ -17,5 +17,5 @@ yarn install
 Run react app.
 
 ```bash
-npm start
+yarn start
 ```
