@@ -6,6 +6,8 @@ React js app for finding available teachers online.
 
 # Getting started
 
+Create `.env` file by copying `.env.example` and setting up required configurations.
+
 Install dependencies.
 
 ```bash
